@@ -1,6 +1,6 @@
 {
-  "name": "PWA-TEST",
-  "short_name": "PWA-TEST",
+  "name": "PWA-TEST-NC",
+  "short_name": "PWA-TEST-NC",
   "start_url": "index.html",
   "display": "standalone",
   "theme_color": "#000000",
