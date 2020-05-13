@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap.min.css">
+
+    <link rel="stylesheet" href="assets/vendor/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/vendor/fontawesome/css/solid.min.css">
+
+    <title>PWA-TEST</title>
+    <meta name="description" content="">
+    <link rel="icon" href="assets/img/favicon.ico">
+    <link rel="icon" href="assets/img/pwa-test-192x192.png">
+    <link rel="apple-touch-icon" href="assets/img/pwa-test-192x192.png">
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark bg-dark mb-4">
+      <div class="container">
+        <a class="navbar-brand" href="#">PWA-TEST</a>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <!-- LocationMap(API) -->
+      <div class="row mb-1">
+        <div class="col-12 px-1">
+          <button id="btnMapApi" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp;LocationMap(API)</button>
+        </div>
+      </div>
+      <div id="collapseMapApi" class="collapse mb-1">
+        <div class="card">
+          <div class="card-body">
+            <button id="btnCloseMapApi" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
+            <div id="resultMapApi"></div>
+            <div id="mapApi" class="w-100" style="height:300px;"></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- LocationMap(Embed) -->
+      <div class="row mb-1">
+        <div class="col-12 px-1">
+          <button id="btnMapEmbed" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp;LocationMap(Embed)</button>
+        </div>
+      </div>
+      <div id="collapseMapEmbed" class="collapse mb-1">
+        <div class="card">
+          <div class="card-body">
+            <button id="btnCloseMapEmbed" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
+            <div id="resultMapEmbed"></div>
+            <div id="mapEmbed" class="w-100" style="height:300px;"></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Camera(File) -->
+      <div class="row mb-1">
+        <div class="col-12 px-1">
+          <label class="w-100 mb-0">
+            <span class="btn btn-primary btn-lg btn-block">
+              <i class="fas fa-camera"></i>&nbsp;&nbsp;Camera(File)<input id="btnCameraFile" type="file" class="d-none" accept="image/*" capture>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div id="collapseCameraFile" class="collapse mb-1">
+        <div class="card">
+          <div class="card-body pb-0">
+            <button id="btnCloseCameraFile" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
+            <div id="resultCameraFile"></div>
+          </div>
+          <div id="imgCameraFile"></div>
+        </div>
+      </div>
+
+      <!-- Camera(Media) -->
+      <div class="row mb-1">
+        <div class="col-12 px-1">
+          <button id="btnCameraMedia" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-camera"></i>&nbsp;&nbsp;Camera(Media)</button>
+        </div>
+      </div>
+      <div id="collapseCameraMedia" class="collapse mb-1">
+        <div class="card">
+          <div class="card-body pb-0 text-center">
+            <button id="btnCloseCameraMedia" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
+            <button id="btnCaptureCameraMedia" type="button" class="btn btn-dark rounded-circle p-0 mb-1" style="width:3rem;height:3rem;"><i class="fas fa-camera"></i></button>
+          </div>
+          <div id="imgCameraMedia"></div>
+        </div>
+      </div>
+
+      <!-- QRScan(Media) -->
+      <div class="row mb-1">
+        <div class="col-12 px-1">
+          <button id="btnQrScanMedia" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-qrcode"></i>&nbsp;&nbsp;QRScan</button>
+        </div>
+      </div>
+      <div id="collapseQrScanMedia" class="collapse mb-1">
+        <div class="card">
+          <div class="card-body pb-0">
+            <button id="btnCloseQrScanMedia" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
+            <div id="resultQrScanMedia"></div>
+          </div>
+          <div id="imgQrScanMedia"></div>
+        </div>
+      </div>
+
+      <!-- CardScan -->
+      <div class="row mb-1">
+        <div class="col-12 px-1">
+          <button id="btnCardScan" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-credit-card"></i>&nbsp;&nbsp;CardScan</button>
+        </div>
+      </div>
+      <div id="collapseCardScan" class="collapse mb-1">
+        <div class="card">
+          <div class="card-body pb-0">
+            <button id="btnCloseCardScan" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
+            <div class="form-group">
+              <label for="cc-number">クレジットカード番号</label>
+              <input type="text" id="cc-number" name="cc-number" class="form-control" autocomplete="cc-number">
+            </div>
+            <div class="form-group">
+              <label for="cc-type">カードブランド</label>
+              <select id="cc-type" name="cc-type" class="form-control" autocomplete="cc-type">
+                <option value="">選択してください</option>
+                <option value="V">VISA</option>
+                <option value="M">Mastercard</option>
+                <option value="J">JCB</option>
+                <option value="A">American Express</option>
+                <option value="D">Diners Club</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="cc-exp-month">有効期限（月）</label>
+                <input type="text" id="cc-exp-month" name="cc-exp-month" class="form-control" autocomplete="cc-exp-month">
+              </div>
+              <div class="form-group col-6">
+                <label for="cc-exp-year">有効期限（年）</label>
+                <input type="text" id="cc-exp-year" name="cc-exp-year" class="form-control" autocomplete="cc-exp-year">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cc-csc">セキュリティコード</label>
+              <input type="text" id="cc-csc" name="cc-csc" class="form-control" autocomplete="cc-csc">
+            </div>
+            <div class="form-group">
+              <label for="cc-name">カード名義</label>
+              <input type="text" id="cc-name" name="cc-name" class="form-control" autocomplete="cc-name">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contacts -->
+      <div class="row mb-1">
+        <div class="col-12 px-1">
+          <button id="btnContacts" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-address-book"></i>&nbsp;&nbsp;Contacts</button>
+        </div>
+      </div>
+      <div id="collapseContacts" class="collapse mb-1">
+        <div class="card">
+          <div class="card-body text-center">
+            <button id="btnCloseContacts" type="button" class="btn btn-outline-dark btn-block mb-3">閉じる</button>
+            <div id="resultContacts"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TouchID -->
+      <div class="row mb-1">
+        <div class="col-12 px-1">
+          <button id="btnTouchId" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-fingerprint"></i>&nbsp;&nbsp;TouchID</button>
+        </div>
+      </div>
+
+      <!-- Calendar -->
+      <div class="row mb-1">
+        <div class="col-12 px-1">
+          <button type="button" class="btn btn-primary btn-lg btn-block" disabled><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Calendar</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <script src="assets/vendor/jquery-3.5.0.min.js"></script>
+    <script src="assets/vendor/popper.min.js"></script>
+    <script src="assets/vendor/bootstrap.min.js"></script>
+
+    <script src="assets/vendor/jsQR.min.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/index.js"></script>
+  </body>
+</html>
